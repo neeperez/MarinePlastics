@@ -4,9 +4,9 @@ import axios from 'axios';
 
 import Style from './Map.css';
 
-import Pin from './Pin.jsx';
+// import Pin from './Pin.jsx';
 
-import {K_SIZE} from './PinStyle.js'
+// import {K_SIZE} from './PinStyle.js'
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
@@ -45,26 +45,38 @@ class Map extends Component {
      zoom: 13
    };
 
+   // onMarkerClick = function() {
+   //   <Link to={{
+   //     pathname: `/entry/${this.state.data._id}`,
+   //     state: { comment: comment  }
+   //   }}>
+   // };
 
    render(){
      const GoogleMapsMarkers = this.state.data.map(comment => (
+        
          <CustomMarker
            key={comment.id}
            lat={comment.lat}
            lng={comment.lon}
            text={comment.beach}
-         />
+
+          />
+        
        ));
        return (
           <div style={{height: '500px', width: '1248px'}}>
+          <CustomMarker onClick={this.onMarkerClick}
+                          name={'Current location'} />
       <GoogleMapReact
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
-
         bootstrapURLKeys={{
         key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
         }}
       >
+
+
 
         {GoogleMapsMarkers}
       </GoogleMapReact>
