@@ -1,15 +1,21 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
 import Style from './Map.css';
 
-import Pin from './Pin.jsx';
+const CustomMarker = ({ text, url, comment }) =>{
+  return(
+    <div className="custom-marker"><p>{text}</p>
+      <Link to={{
+        pathname: `/entry/${url}`,
+        state: { comment: comment  }
+      }}>
+      </Link>
+    </div>
 
-import {K_SIZE} from './PinStyle.js'
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
+);}
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -48,12 +54,16 @@ class Map extends Component {
 
    render(){
      const GoogleMapsMarkers = this.state.data.map(comment => (
+
          <CustomMarker
            key={comment.id}
            lat={comment.lat}
            lng={comment.lon}
            text={comment.beach}
+           url={comment._id}
+           comment={comment}
          />
+
        ));
        return (
           <div style={{height: '500px', width: '1248px'}}>
