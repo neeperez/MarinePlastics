@@ -1,15 +1,22 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component, Link } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
 import Style from './Map.css';
 
 // import Pin from './Pin.jsx';
-
 // import {K_SIZE} from './PinStyle.js'
-
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
-const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
+
+const CustomMarker = ({ text, comment, url }) => {
+    // <Link to={{
+    //     pathname: `/entry/${url}`,
+    //     state: { comment: comment  }
+    //   }}>
+
+      <div className="custom-marker"><p>{text}</p></div>
+// </Link>
+};
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -45,29 +52,22 @@ class Map extends Component {
      zoom: 13
    };
 
-   // onMarkerClick = function() {
-   //   <Link to={{
-   //     pathname: `/entry/${this.state.data._id}`,
-   //     state: { comment: comment  }
-   //   }}>
-   // };
-
    render(){
      const GoogleMapsMarkers = this.state.data.map(comment => (
-        
+
          <CustomMarker
            key={comment.id}
            lat={comment.lat}
            lng={comment.lon}
            text={comment.beach}
-
+           // url={comment._id}
+           // comment={comment}
           />
-        
+
        ));
        return (
           <div style={{height: '500px', width: '1248px'}}>
-          <CustomMarker onClick={this.onMarkerClick}
-                          name={'Current location'} />
+
       <GoogleMapReact
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
@@ -76,9 +76,8 @@ class Map extends Component {
         }}
       >
 
-
-
         {GoogleMapsMarkers}
+
       </GoogleMapReact>
         </div>
     );

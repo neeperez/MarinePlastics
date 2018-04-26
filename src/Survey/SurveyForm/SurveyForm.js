@@ -156,6 +156,7 @@ class SurveyForm extends Component {
         component:
           <FormStep1
             handleInputChange={ this.handleInputChange }
+            // validateInput={ this.validateInput }
           />
       }, {
         name: 'Survey Area',
