@@ -51,7 +51,8 @@ class Map extends Component {
       />
     ));
     return (
-      <div style={{height: '500px', width: '1248px'}}>
+    
+      <div style={{height: '500px', width: '100%'}}>
         <GoogleMapReact
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
@@ -65,6 +66,7 @@ class Map extends Component {
       </div>
     );
   }
+  
 }
 
 export default Map;
