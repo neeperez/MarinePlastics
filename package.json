@@ -37,9 +37,11 @@
     "extends": "./node_modules/react-scripts/config/eslint.js"
   },
   "browser": {
-    "fs": false
-  },
+     "fs": false,
+     "child_process": false
+   },
   "node": {
     "fs": "empty"
+
   }
 }

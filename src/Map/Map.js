@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import ReactDOM from "react-dom";
 import axios from 'axios';
+import { compose, withProps } from "recompose";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
 
-const CustomMarker = ({ text }) => <div className="custom-marker"><p>{ text }</p></div>;
 
 class Map extends Component {
   constructor(props) {
@@ -35,35 +41,34 @@ class Map extends Component {
     this.pollInterval && clearInterval(this.pollInterval);
     this.pollInterval = null;
   }
-  static defaultProps = {
-     center: {lat: 36.965652,lng: -121.954729},
-     zoom: 13
-   };
-
-
-   render(){
-    const GoogleMapsMarkers = this.state.data.map(comment => (
-      <CustomMarker
-        key={comment.id}
-        lat={comment.lat}
-        lng={comment.lon}
-        text={comment.beach}
-      />
+  render() {
+      const GoogleMapsMarkers= this.state.data.map((marker, index)=> {
+        return(
+        <Marker
+          key={index}
+          position={{ lat: marker.lat, lng: marker.lon }}
+        />
+      )
+    })
+    const MapComponent = withScriptjs(withGoogleMap((props) =>
+    <GoogleMap
+      defaultZoom={10}
+      defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
+    >
+    {GoogleMapsMarkers}
+    </GoogleMap>
     ));
     return (
-      <div style={{height: '500px', width: '1248px'}}>
-        <GoogleMapReact
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-
-          bootstrapURLKeys={{
-          key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
-          }}
-        >
-          { GoogleMapsMarkers }
-        </GoogleMapReact>
+      <div>
+        <MapComponent
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `600px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          
+        />
       </div>
-    );
+    )
   }
 }
 
