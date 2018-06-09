@@ -1,3 +1,7 @@
+function CapitlizeString(word)
+{
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
 export function sumDebrisTypes(data) {
   let res = [];
   for (let i = 0; i < data.length; i++) {
@@ -8,7 +12,9 @@ export function sumDebrisTypes(data) {
         res[foundIndex].value += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
       }
       else {
-        let name = currEntrySRS[j].name;
+        let name = currEntrySRS[j].name.replace(/([A-Z])/g, ' $1').trim();
+        name = name.replace(/_/g, ' ');
+        name = CapitlizeString(name);
         let total = currEntrySRS[j].fresh + currEntrySRS[j].weathered;
         res.push({
           key: name,
