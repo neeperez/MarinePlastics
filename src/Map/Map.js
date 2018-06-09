@@ -9,6 +9,19 @@ import {
   Marker
 } from "react-google-maps";
 
+const MapComponent = withScriptjs(withGoogleMap((props) =>
+<GoogleMap
+  defaultZoom={10}
+  defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
+>
+{props.markers.map(marker => (
+  <Marker 
+    key={marker.id} 
+    position={{ lat: marker.lat, lng: marker.lon}}>
+  </Marker>))
+}
+</GoogleMap>
+));
 
 class Map extends Component {
   constructor(props) {
@@ -41,26 +54,22 @@ class Map extends Component {
     this.pollInterval && clearInterval(this.pollInterval);
     this.pollInterval = null;
   }
+  
   render() {
-      const GoogleMapsMarkers= this.state.data.map((marker, index)=> {
-        return(
-        <Marker
-          key={index}
-          position={{ lat: marker.lat, lng: marker.lon }}
-        />
-      )
-    })
-    const MapComponent = withScriptjs(withGoogleMap((props) =>
-    <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
-    >
-    {GoogleMapsMarkers}
-    </GoogleMap>
-    ));
+    //   let GoogleMapsMarkers= this.state.data.map((marker, index)=> {
+    //     return(
+    //     <Marker
+    //       key={index}
+    //       position={{ lat: marker.lat, lng: marker.lon }}
+    //     />
+    //   )
+    // })
+
     return (
       <div>
         <MapComponent
+          markers={this.state.data}
+          
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `600px` }} />}

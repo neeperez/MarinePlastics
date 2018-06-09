@@ -96,11 +96,14 @@ render() {
                    <a onMouseEnter={this.handleHover}>Menu</a>
                       { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
                 </li>
+                <li>
+                { this.props.auth.isAuthenticated()
+                  ? <a onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</a>
+                  : <a onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</a>
+                }
+                </li>
               </ul>
-              { this.props.auth.isAuthenticated()
-                ? <a onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</a>
-                : <a onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</a>
-              }
+
          </div>
          
      </nav>
