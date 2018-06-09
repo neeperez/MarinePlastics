@@ -6,20 +6,20 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker, 
+  SearchBox
 } from "react-google-maps";
 
 const MapComponent = withScriptjs(withGoogleMap((props) =>
 <GoogleMap
-  defaultZoom={10}
+  defaultZoom={12}
   defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
 >
 {props.markers.map(marker => (
   <Marker 
     key={marker.id} 
     position={{ lat: marker.lat, lng: marker.lon}}>
-  </Marker>))
-}
+  </Marker>)) }
 </GoogleMap>
 ));
 
@@ -31,20 +31,17 @@ class Map extends Component {
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
-
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
         this.setState({ data: res.data });
       })
   }
-
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     }
   }
-
   //when incorporating into another project
   //(with react-router for instance),
   //this will prevent error messages every 2 seconds
@@ -56,20 +53,10 @@ class Map extends Component {
   }
   
   render() {
-    //   let GoogleMapsMarkers= this.state.data.map((marker, index)=> {
-    //     return(
-    //     <Marker
-    //       key={index}
-    //       position={{ lat: marker.lat, lng: marker.lon }}
-    //     />
-    //   )
-    // })
-
     return (
       <div>
         <MapComponent
           markers={this.state.data}
-          
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `600px` }} />}

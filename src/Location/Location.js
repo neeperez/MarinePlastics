@@ -2,12 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { PieChart, Legend, BarChart } from 'react-easy-chart';
-
-// to get the pin styles
-import '../Map/Map.css';
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker, 
+  SearchBox
+} from "react-google-maps";
 
 import { sumDebrisTypes, sumTotals } from '../_helpers/ChartHelpers';
-
+const MapComponent = withScriptjs(withGoogleMap((props) =>
+<GoogleMap
+  defaultZoom={12}
+  defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
+>
+{
+  <Marker 
+    key={props.marker.id} 
+    position={{ lat: props.marker.lat, lng: props.marker.lon}}>
+  </Marker> }
+</GoogleMap>
+));
 class Location extends Component {
   constructor(props) {
     super(props);
@@ -98,22 +113,14 @@ class Location extends Component {
             {
               this.state.data.lat && this.state.data.lon && checkRange(this.state.data.lat, true) && checkRange(this.state.data.lon, false) ?
               (<div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
-                <GoogleMapReact
-                  defaultCenter={{
-                    lat: this.state.data.lat,
-                    lng: this.state.data.lon,
-                  }}
-                  defaultZoom={13}
-                  bootstrapURLKeys={{
-                    key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
-                  }}
-                >
-                  <CustomMarker
-                    lat={ this.state.data.lat }
-                    lng={ this.state.data.lon }
-                    name={ this.state.data.name }
-                  />
-                </GoogleMapReact>
+              <MapComponent
+                marker={this.state.data}
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `440px` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+                onMarkerClick={this.handleMarkerClick}
+              />
               </div>) : null
             }
           </div>
