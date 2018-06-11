@@ -6,7 +6,7 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker, 
+  Marker,
   SearchBox
 } from "react-google-maps";
 
@@ -17,8 +17,8 @@ const MapComponent = withScriptjs(withGoogleMap((props) =>
   defaultCenter={{ lat: 36.976652, lng: -121.932416 }}
 >
 {
-  <Marker 
-    key={props.marker.id} 
+  <Marker
+    key={props.marker.id}
     position={{ lat: props.marker.lat, lng: props.marker.lon}}>
   </Marker> }
 </GoogleMap>
@@ -79,62 +79,121 @@ class Location extends Component {
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
     return(
       <div>
-        <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.name }</h1>
-        <div className="uk-grid uk-grid-match">
-          <div className="uk-width-3-4">
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Number of Pieces of Debris Collected</h3>
-              <select className="uk-select uk-form-large" id='bar-type' onChange={ this.changeBarGraph }>
-                <option value="srs">in Surface Rib Scan Surveys</option>
-                <option value="as">in Accumulation Sweep Surveys</option>
-              </select>
-              <div className="uk-align-center" style={{width: '650px'}}>
-                <BarChart
-                  axes
-                  colorBars
-                  data={ this.state.barChartData }
-                  // datePattern="%Y-%m-%e"
-                  // xType={'time'}
-                  height={250}
-                  width={650}
-                />
+        <div className="uk-visible@m">
+          <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.name }</h1>
+          <div className="uk-grid uk-grid-match">
+            <div className="uk-width-3-4">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Number of Pieces of Debris Collected</h3>
+                <select className="uk-select uk-form-large" id='bar-type' onChange={ this.changeBarGraph }>
+                  <option value="srs">in Surface Rib Scan Surveys</option>
+                  <option value="as">in Accumulation Sweep Surveys</option>
+                </select>
+                <div className="uk-align-center" style={{width: '650px'}}>
+                  <BarChart
+                    axes
+                    colorBars
+                    data={ this.state.barChartData }
+                    // datePattern="%Y-%m-%e"
+                    // xType={'time'}
+                    height={250}
+                    width={650}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="uk-width-1-4">
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Survey Entries</h3>
-              <ul>
-                { entries }
-              </ul>
+            <div className="uk-width-1-4">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Survey Entries</h3>
+                <ul>
+                  { entries }
+                </ul>
+              </div>
             </div>
-          </div>
-          <div className="uk-grid-margin uk-width-1-3">
-            {
-              this.state.data.lat && this.state.data.lon && checkRange(this.state.data.lat, true) && checkRange(this.state.data.lon, false) ?
-              (<div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
-              <MapComponent
-                marker={this.state.data}
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `440px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-                onMarkerClick={this.handleMarkerClick}
-              />
-              </div>) : null
-            }
-          </div>
-          <div className="uk-grid-margin uk-width-2-3">
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Types of Debris Found</h3>
-              <div className="uk-grid">
-                <PieChart data={ pieChartData } />
-                <Legend data={ pieChartData } dataId={ 'key' } />
+            <div className="uk-grid-margin uk-width-1-3">
+              {
+                this.state.data.lat && this.state.data.lon && checkRange(this.state.data.lat, true) && checkRange(this.state.data.lon, false) ?
+                (<div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
+                <MapComponent
+                  marker={this.state.data}
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `440px` }} />}
+                  mapElement={<div style={{ height: `100%` }} />}
+                  onMarkerClick={this.handleMarkerClick}
+                />
+                </div>) : null
+              }
+            </div>
+            <div className="uk-grid-margin uk-width-2-3">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Types of Debris Found</h3>
+                <div className="uk-grid">
+                  <PieChart data={ pieChartData } />
+                  <Legend data={ pieChartData } dataId={ 'key' } />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div> 
+        <div className="uk-hidden@m">
+          <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.name }</h1>
+          <div className="uk-grid uk-grid-match">
+            <div className="uk-width-1-1">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Number of Pieces of Debris Collected</h3>
+                <select className="uk-select uk-form-large" id='bar-type' onChange={ this.changeBarGraph }>
+                  <option value="srs">in Surface Rib Scan Surveys</option>
+                  <option value="as">in Accumulation Sweep Surveys</option>
+                </select>
+                <div className="uk-align-center" style={{width: '400px'}}>
+                  <BarChart
+                    axes
+                    colorBars
+                    data={ this.state.barChartData }
+                    // datePattern="%Y-%m-%e"
+                    // xType={'time'}
+                    height={250}
+                    width={400}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className=" uk-grid-margin uk-width-1-2">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Survey Entries</h3>
+                <ul>
+                  { entries }
+                </ul>
+              </div>
+            </div>
+            <div className="uk-grid-margin uk-width-1-2">
+              {
+                this.state.data.lat && this.state.data.lon && checkRange(this.state.data.lat, true) && checkRange(this.state.data.lon, false) ?
+                (<div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
+                <MapComponent
+                  marker={this.state.data}
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `440px` }} />}
+                  mapElement={<div style={{ height: `100%` }} />}
+                  onMarkerClick={this.handleMarkerClick}
+                />
+                </div>) : null
+              }
+            </div>
+            <div className="uk-grid-margin uk-width-1-1">
+              <div className="uk-card uk-card-default uk-card-body">
+                <h3 className="uk-card-title">Types of Debris Found</h3>
+                <div className="uk-grid">
+                  <PieChart data={ pieChartData } width={400} />
+                  <Legend data={ pieChartData } dataId={ 'key' } />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
