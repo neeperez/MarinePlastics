@@ -61,7 +61,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { profile, data } = this.state;
+    const { profile } = this.state;
     return (
       <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
         <div className="uk-card-header uk-align-center">
