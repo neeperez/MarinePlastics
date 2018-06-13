@@ -31,7 +31,7 @@ const MapComponent = withScriptjs(withGoogleMap((props) =>
                         options={{pixelOffset: new google.maps.Size(0,-30)}} >
 
                         <Link to={{ pathname: `/entry/${marker._id}` }}>
-                            marker.name
+                            { marker.beach }
                         </Link>
 
                     </InfoWindow>
@@ -55,12 +55,12 @@ class Map extends Component {
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
 
   }
-  handleToggleOpen = () => {
+  handleToggleOpen () {
     this.setState({ isOpen: true});
  }
 
- handleToggleClose = (infobox) => {
-      infobox = false;
+ handleToggleClose(){
+    this.setState({ isOpen: false});
  }
   loadCommentsFromServer() {
     axios.get(this.url)
@@ -91,7 +91,7 @@ class Map extends Component {
   //
   // }
   handleMarkerHover=(marker)=>{
-    console.log(marker);
+    // console.log(marker);
   }
 
   render() {
@@ -105,7 +105,8 @@ class Map extends Component {
           containerElement={<div style={{ height: `600px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
           onMarkerHover={this.handleMarkerHover}
-          onMarkerClick={this.handleToggleOpen}
+          handleToggleOpen={this.handleToggleOpen}
+          handleToggleClose={this.handleToggleClose}
         />
       </div>
     )

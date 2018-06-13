@@ -1,29 +1,43 @@
-Sponsored by Clean Oceans International: A web application to enable people to post, view, and filter data about clean up marine sites. Educates the public about the necessary coastal clean up protocol.
+# Marine Plastics Monitor
+### Sponsored by [Clean Oceans International](https://cleanoceansinternational.org/)
+### Live site: https://marineplastics.herokuapp.com/
 
-Developers:
+A web application for people to view and input data collected at beach clean-ups around the world. 
 
-Guita Vahdatinia - gvahdati@ucsc.edu
+## Getting Started
 
-Kianna Mark - kjmark@ucsc.edu
+### Prerequesites
+Need access to our accounts on (need to contact one of the developers)
+  * Heroku
+  * MLab
+  * Auth0
 
-Michael Pluguez - mpluguez@ucsc.edu
+Also if want to work on our API, it is found [here](https://github.com/vincentwu96/MarinePlasticsDB).
 
-Megan Sharp - mesharp@ucsc.edu
+### Installing
+1. Clone the repo: `git clone https://github.com/vincentwu96/MarinePlastics.git`
+2. Install the dependencies: `npm install`
+3. Run the development environment: `npm run start`
 
-Lee White - lnwhite@ucsc.edu
+### Quirks 
 
-Vincent Wu - vwu5@ucsc.edu
 
-How to run:
+## Built With
+* [ReactJS](https://reactjs.org/)
+* [React Router](https://reacttraining.com/react-router/)
+* [Auth0](https://auth0.com/)
+* [MLab](https://www.mlab.com/)
+* [React Google Maps](https://github.com/tomchentw/react-google-maps)
+* [React Easy Chart](https://github.com/rma-consulting/react-easy-chart)
+* [Mongoose](http://mongoosejs.com/) - for setting up our database schemas
+* [Axios](https://github.com/axios/axios) - for interacting with our API
 
-git clone
+## Product Backlog
 
-npm install
-
-npm run start-dev
-
-Scrum Meetings: 
-
-Tuesday/Thursday 3:15 at McHenry
-
-Sunday 12:00 at McHenry
+## Developers:
+* Guita Vahdatinia - gvahdati@ucsc.edu
+* Kianna Mark - kjmark@ucsc.edu
+* Michael Pluguez - mpluguez@ucsc.edu
+* Megan Sharp - mesharp@ucsc.edu
+* Lee White - lnwhite@ucsc.edu
+* Vincent Wu - vwu5@ucsc.edu

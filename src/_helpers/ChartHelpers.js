@@ -1,7 +1,3 @@
-function CapitlizeString(word)
-{
-    return word.charAt(0).toUpperCase() + word.slice(1);
-}
 export function sumDebrisTypes(data) {
   let res = [];
   for (let i = 0; i < data.length; i++) {
@@ -12,9 +8,7 @@ export function sumDebrisTypes(data) {
         res[foundIndex].value += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
       }
       else {
-        let name = currEntrySRS[j].name.replace(/([A-Z])/g, ' $1').trim();
-        name = name.replace(/_/g, ' ');
-        name = CapitlizeString(name);
+        let name = currEntrySRS[j].name;
         let total = currEntrySRS[j].fresh + currEntrySRS[j].weathered;
         res.push({
           key: name,
@@ -23,7 +17,7 @@ export function sumDebrisTypes(data) {
       }
     }
   }
-  return res;
+  return fixKeys(res);
 }
 
 export function sumTotals(data, isSRS) {
@@ -53,10 +47,24 @@ export function getTotalPounds(data) {
   return res;
 }
 
-function sumHelper (value, arr, key) {
+function sumHelper(value, arr, key) {
   let found = -1;
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][key] === value) found = i;
   }
   return found;
+}
+
+function CapitlizeString(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+function fixKeys(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let key = arr[i].key;
+    key = key.replace(/([A-Z])/g, ' $1').trim().replace(/_/g, ' ');
+    key = CapitlizeString(key);
+    arr[i].key = key;
+  }
+  return arr;
 }

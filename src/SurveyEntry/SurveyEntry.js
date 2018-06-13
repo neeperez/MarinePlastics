@@ -82,10 +82,6 @@ class SurveyEntry extends Component {
       document.getElementById('survey-area-section').style.display = 'block';
     }
 
-    if (this.state.comment.lastTide || this.state.comment.nextTide) {
-      document.getElementById('tide-section').style.display = 'block';
-    }
-
     return (
       <div>
         <h2 className="uk-text-primary uk-heading-primary">
@@ -157,33 +153,42 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          <div id="tide-section" className="uk-grid-margin uk-margin-bottom" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Tide Information</h3>
-              <h4>The Last Tide</h4>
-              <div>
-                {
-                  this.state.comment.lastTide ?
-                  (<div>
-                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p> 
-                    <p><strong>Time:</strong> { this.state.comment.lastTide.time }</p>
-                    <p><strong>Height:</strong> { this.state.comment.lastTide.height }</p>
-                  </div>): null
-                }
-              </div>
-              <h4>The Next Tide</h4>
-              <div>
-                {
-                  this.state.comment.nextTide ?
-                  (<div>
-                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p> 
-                    <p><strong>Time:</strong> { this.state.comment.nextTide.time }</p>
-                    <p><strong>Height:</strong> { this.state.comment.nextTide.height }</p>
-                  </div>): null
-                }
-              </div>
-            </div>
-          </div>
+          {
+            (this.state.comment.lastTide && this.state.comment.nextTide && 
+            (('time' in this.state.comment.lastTide || 'height' in this.state.comment.lastTide) || 
+            ('time' in this.state.comment.nextTide || 'height' in this.state.comment.nextTide))) ?
+              <div id="tide-section" className="uk-grid-margin uk-margin-bottom">
+                <div className="uk-card uk-card-default uk-card-body">
+                  <h3 className="uk-card-title">Tide Information</h3>
+                  {
+                    'time' in this.state.comment.lastTide || 'height' in this.state.comment.lastTide ?
+                    (
+                      <div>
+                        <h4>The Last Tide</h4>
+                        <div>
+                          <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p> 
+                          <p><strong>Time:</strong> { this.state.comment.lastTide.time }</p>
+                          <p><strong>Height:</strong> { this.state.comment.lastTide.height }</p>
+                        </div>
+                      </div>
+                    ) : null
+                  }
+                  {
+                    'time' in this.state.comment.nextTide || 'height' in this.state.comment.nextTide ?
+                    (
+                      <div>
+                        <h4>The Next Tide</h4>
+                        <div>
+                          <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p> 
+                          <p><strong>Time:</strong> { this.state.comment.nextTide.time }</p>
+                          <p><strong>Height:</strong> { this.state.comment.nextTide.height }</p>
+                        </div>
+                      </div>
+                    ) : null
+                  }
+                </div>
+              </div> : null
+          }
         </div>
         <div id="SRS-section" style={{ display: 'none' }}>
           <h3>Surface Rib Scan Survey</h3>

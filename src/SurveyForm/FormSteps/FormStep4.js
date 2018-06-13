@@ -161,6 +161,12 @@ class FormStep4 extends Component {
                 id='tileBrick'
                 handleInputChange={ this.props.handleInputChange }
               />
+              <FormTableRow
+                name='Micro Plastics' 
+                class='srs'
+                id='microPlastics'
+                handleInputChange={ this.props.handleInputChange }
+              />
               { getRowsComponents() }
             </tbody>
             <tfoot>

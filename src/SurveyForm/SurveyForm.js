@@ -40,9 +40,9 @@ class SurveyForm extends Component {
         majorUse: 'recreation',
         weight: '',
         NumberOfPeople: '',
-        SRSTotal: '',
+        SRSTotal: 0,
         SRSData: [],
-        ASTotal: '',
+        ASTotal: 0,
         ASData: [],
         surveyArea: '',
       },
@@ -52,6 +52,12 @@ class SurveyForm extends Component {
           hidden: false,
           valid: false,
           formStep: 1,
+        },
+        {
+          name: 'Survey Area',
+          hidden: true,
+          valid: true,
+          formStep: 2,
         }
       ],
       currStep: 0,
@@ -237,19 +243,6 @@ class SurveyForm extends Component {
         hidden: true,
         valid: false,
         formStep: 5,
-      });
-    }
-    
-    if (
-      localStorage.BasicCleanUp === '0' ||
-      localStorage.SurfaceRibScan === '1' ||
-      localStorage.AccumulationSurvey === '1'
-    ) {
-      formPages.push({
-        name: 'Survey Area',
-        hidden: true,
-        valid: true,
-        formStep: 2,
       });
     }
 
